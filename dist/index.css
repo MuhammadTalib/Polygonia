@@ -1,0 +1,21 @@
+.rightNavbar{
+    background-color:  #333333;
+    width:30%;
+    position: absolute;
+    left: 100%;
+    top:100%;
+    transform: translateX(-100%) translateY(-100%);
+    overflow-y: hidden;
+    height: 100%;
+}
+.navbarcontent{
+    position: relative;
+    margin-left:20% ;
+    color: blanchedalmond;
+}
+.mainwrapper{
+    overflow-y: hidden;
+}
+.container{
+    width: 50%;
+}
