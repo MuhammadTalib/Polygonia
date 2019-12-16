@@ -1,6 +1,6 @@
 import * as THREE from "three"
 
-var TotalVertices=null,Radius=null,prevVertex,prevRadius
+var TotalVertices=null,Radius=null,prevVertex,prevRadius,meshArray=[]
 var scene = new THREE.Scene();
 var mouseDown=0,prevPos=null,nextPos=null
 
@@ -44,15 +44,22 @@ function drawPolygon(){
         var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
         polygon = new THREE.Mesh( geometry, material );
         scene.add(polygon)
+        meshArray.push(polygon)
         prevVertex=TotalVertices
         prevRadius=Radius
-        draw3dPolygon()
+        for(var i=0;i<4;i++){
+            for(var j in meshArray){
+                console.log("i j",i,j)
+                draw3dPolygon(meshArray[j])
+            }
+        }
+        
     }
 
 }
-function draw3dPolygon(){
+function draw3dPolygon(poly){
     for(var i=1;i<=TotalVertices;i++){
-        var polygonFace=polygon.clone()
+        var polygonFace=poly.clone()
         polygonFace.material.color.setHex(0xff00ff)
         var S =new THREE.Matrix4().makeScale(-1,1,1)
         var R =new THREE.Matrix4().makeRotationZ(((Math.PI*2)/TotalVertices)*(i))
@@ -64,7 +71,7 @@ function draw3dPolygon(){
         M=M.multiply(T)
     
         scene.add(polygonFace)
-        
+        meshArray.push(polygonFace)
         polygonFace.applyMatrix(M)
         polygonFace.verticesNeedUpdate=true
     }
