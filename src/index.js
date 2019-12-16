@@ -19,7 +19,6 @@ vertices.oninput = function() {
 radius.oninput = function() {
     prevRadius=Radius
     Radius=radius.value
-    //drawPolygon()
 };
 
 function drawPolygon(){
@@ -27,8 +26,10 @@ function drawPolygon(){
         var geometry = new THREE.Geometry();
         var theta=360/TotalVertices
         for(var i=0;i<TotalVertices;i++){
-            var x=Radius*Math.cos((2*Math.PI*i)/TotalVertices)
-            var y=Radius*Math.sin((2*Math.PI*i)/TotalVertices)
+            var theta=(2*Math.PI*i)/TotalVertices
+            console.log("thete",theta)
+            var x=Radius*Math.cos(theta)
+            var y=Radius*Math.sin(theta)
             geometry.vertices.push( new THREE.Vector3(x,y,0))
         }
         for(var i=0;i<TotalVertices;i++){
@@ -51,15 +52,15 @@ function drawPolygon(){
 }
 function draw3dPolygon(){
     for(var i=1;i<=TotalVertices;i++){
-        console.log("i",i)
         var polygonFace=polygon.clone()
-        console.log("poly",polygonFace)
         polygonFace.material.color.setHex(0xff00ff)
-        var R =new THREE.Matrix4().makeRotationZ(((Math.PI*2)/5)*(i))
+        var S =new THREE.Matrix4().makeScale(-1,1,1)
+        var R =new THREE.Matrix4().makeRotationZ(((Math.PI*2)/TotalVertices)*(i))
         var T =new THREE.Matrix4().makeTranslation(Radius*2,0,0)
-    
+        
         var M=new THREE.Matrix4()
-        M=M.copy(R)
+        M=M.copy(S)
+        M=M.multiply(R)
         M=M.multiply(T)
     
         scene.add(polygonFace)
@@ -80,18 +81,6 @@ function draw3dPolygon(){
     
     
     console.log("vertice",polygonFace)
-}
-function RotationZ(theta){
-    theta=theta*(180/Math.PI)
-    console.log(theta)
-    var R=new THREE.Matrix4()
-    R.set(
-        cos(theta), -1*sin(theta),  0,  0,
-        sin(theta), cos(theta),     0,  0,
-        0,          0,              1,  0,
-        0,          0,              0,  1)
-        console.log("R",R)
-    return R
 }
 function sin(theta){
     return Math.sin(theta)
