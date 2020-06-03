@@ -35,13 +35,12 @@ function drawPolygon(){
         for(var i=0;i<TotalVertices;i++){
             for(var j=i+1;j<TotalVertices;j++){
                 geometry.faces.push( new THREE.Face3( i%TotalVertices,(j)%TotalVertices,(j+1)%TotalVertices) );
-                //geometry.faces.push( new THREE.Face3( i%TotalVertices,(i+1)%TotalVertices,(i+3)%TotalVertices) );
             }
-            
         }
         scene.children=[]
         geometry.computeBoundingSphere();
-        var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+        //var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+        var material =new THREE.MeshBasicMaterial( {transparent:true,opacity:0.2, color: "#f2f2f2" })
         polygon = new THREE.Mesh( geometry, material );
         scene.add(polygon)
         meshArray.push(polygon)
