@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "three": "^0.111.0",
+    "three": "^0.125.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }
